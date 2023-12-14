@@ -32,6 +32,7 @@ const Header = () => {
     setUsername("");
     sessionStorage.removeItem("userId");
     sessionStorage.removeItem("username");
+    sessionStorage.removeItem("watchedMovies");
     handleClose();
     router.push("/");
   };

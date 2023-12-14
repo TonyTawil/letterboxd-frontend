@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useGlobalContext } from "@/context/store";
+import endpoint from "@/constants/endpoint";
 
 const Reviews = ({ movie, reviews, setReviews }) => {
   const [newReview, setNewReview] = useState("");
@@ -11,18 +12,15 @@ const Reviews = ({ movie, reviews, setReviews }) => {
 
   const handleUpdate = async (id, reviewText) => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/v1/reviews/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            reviewBody: reviewText,
-          }),
-        }
-      );
+      const response = await fetch(`${endpoint}/api/v1/reviews/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          reviewBody: reviewText,
+        }),
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
@@ -37,12 +35,9 @@ const Reviews = ({ movie, reviews, setReviews }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/v1/reviews/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${endpoint}/api/v1/reviews/${id}`, {
+        method: "DELETE",
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
@@ -61,7 +56,7 @@ const Reviews = ({ movie, reviews, setReviews }) => {
   const handleReviewSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/api/v1/reviews", {
+    fetch(`${endpoint}/api/v1/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

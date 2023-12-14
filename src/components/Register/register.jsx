@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import endpoint from "@/constants/endpoint";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -24,10 +25,12 @@ const Register = () => {
 
     try {
       let watchedMovies = [];
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/users/register",
-        { username, password, watchedMovies, email }
-      );
+      const response = await axios.post(`${endpoint}/api/v1/users/register`, {
+        username,
+        password,
+        watchedMovies,
+        email,
+      });
 
       if (response.status === 200) {
         console.log("Registration successful", response.data);

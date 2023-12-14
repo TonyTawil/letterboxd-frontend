@@ -38,12 +38,22 @@ const Account = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.put(`${endpoint}/api/v1/users/${userId}`, {
-        username: newUsername,
-        email: newEmail,
-        password: newPassword,
-        oldPassword: oldPassword,
-      });
+      const response = await axios.put(
+        `${endpoint}/api/v1/users/${userId}`,
+        {
+          username: newUsername,
+          email: newEmail,
+          password: newPassword,
+          oldPassword: oldPassword,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
 
       if (response.status === 200) {
         setErrorMessage("");
@@ -66,7 +76,13 @@ const Account = () => {
 
   const fetchUser = async () => {
     if (userId) {
-      const response = await axios.get(`${endpoint}/api/v1/users/${userId}`);
+      const response = await axios.get(`${endpoint}/api/v1/users/${userId}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
       setNewUsername(response.data.username);
       setNewEmail(response.data.email);
     }

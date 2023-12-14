@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/context/store";
 import Link from "next/link";
+import endpoint from "@/constants/endpoint";
 
 const Login = () => {
   const { setUserId, username, setUsername, setWatchedMovies } =
@@ -23,10 +24,10 @@ const Login = () => {
     setError(false);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/users/login",
-        { username, password }
-      );
+      const response = await axios.post(`${endpoint}/api/v1/users/login`, {
+        username,
+        password,
+      });
 
       if (response.status === 200) {
         console.log("Login successful", response.data);

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useGlobalContext } from "@/context/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import endpoint from "@/constants/endpoint";
 
 const Movies = ({ movies }) => {
   const { userId } = useGlobalContext();
@@ -26,13 +27,10 @@ const Movies = ({ movies }) => {
 
   const addMovieToWatchlist = async (imdbId) => {
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/v1/users/addMovie`,
-        {
-          imdbId: imdbId,
-          userId: userId,
-        }
-      );
+      const response = await axios.put(`${endpoint}/api/v1/users/addMovie`, {
+        imdbId: imdbId,
+        userId: userId,
+      });
       if (response.data) {
         setWatchedMovies([...watchedMovies, imdbId]);
         sessionStorage.setItem("watchedMovies", [...watchedMovies, imdbId]);
@@ -44,7 +42,7 @@ const Movies = ({ movies }) => {
   const removeMovieFromWatchlist = async (imdbId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/v1/users/removeMovie`,
+        `${endpoint}/api/v1/users/removeMovie`,
         {
           data: {
             imdbId: imdbId,

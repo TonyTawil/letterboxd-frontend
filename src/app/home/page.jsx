@@ -9,12 +9,12 @@ const Home = () => {
   const [movie, setMovie] = useState({});
 
   const getMovies = async () => {
-    const res = await axios.get("http://localhost:8080/api/v1/movies");
+    const res = await axios.get(`${endpoint}/api/v1/movies`);
     setMovies(res.data);
   };
 
   const getMovieData = async (id) => {
-    const res = await axios.get(`http://localhost:8080/api/v1/movies/${id}`);
+    const res = await axios.get(`${endpoint}/api/v1/movies/${id}`);
     setMovie(res.data);
   };
 
